@@ -3,59 +3,171 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Bean &amp; Bloom — Кофе и десерты</title>
+  <title>Bean &amp; Bloom — Выбор языка</title>
   <style>
-    :root{--brand:#6b4f3a;--accent:#cfa27a;--muted:#7a7a7a;--bg:#f5f3f1}
-    *{box-sizing:border-box}
-    body{font-family:Inter,system-ui,Arial;margin:0;background:var(--bg);color:#222}
-    header{background:linear-gradient(90deg,var(--brand),#7a5a44);color:#fff;padding:18px 16px}
-    .wrap{max-width:980px;margin:18px auto}
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),rgba(255,255,255,0.15));display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
-    h1{margin:8px 0 0;font-size:20px}
-    p.lead{margin:6px 0 0;color:var(--muted)}
-    main.card{background:#fff;border-radius:12px;padding:20px;margin-top:16px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
-    .lang-grid{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-    .lang-btn{flex:1;padding:14px;border-radius:10px;text-align:center;text-decoration:none;color:var(--brand);background:linear-gradient(180deg,#fff,#fff);box-shadow:0 4px 10px rgba(107,79,58,0.06);font-weight:700}
-    .admin-links{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
-    .admin-links a{padding:8px;border-radius:8px;background:#fff;border:1px solid #e5e5e5;text-decoration:none;color:var(--brand);font-weight:700}
-    footer{margin-top:24px;padding:18px 0;color:var(--muted);font-size:13px;text-align:center}
-    @media(max-width:520px){.brand h1{font-size:18px}.lang-btn{padding:12px}}
+    :root{
+      --brand:#6b4f3a;
+      --cta:#b86d2a;
+      --muted:#6d6d6d;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      font-family:Inter,system-ui,Arial;
+      color:#fff;
+    }
+
+    body{
+      background:
+              linear-gradient(rgba(10,8,6,0.38), rgba(10,8,6,0.38)),
+              url('/images/hero_coffee_cup_brewnest.jpg') center/cover no-repeat fixed;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .brand{
+      position:fixed;
+      left:20px;
+      top:18px;
+      color:#fff;
+      font-weight:900;
+      font-size:20px;
+      text-decoration:none;
+      z-index:40;
+      text-shadow:0 4px 18px rgba(0,0,0,0.55);
+    }
+
+    .admin-links-fixed{
+      position:fixed;
+      left:18px;
+      bottom:18px;
+      display:flex;
+      gap:10px;
+      z-index:40;
+    }
+
+    .admin-links-fixed a{
+      padding:8px 12px;
+      border-radius:10px;
+      background:rgba(255,255,255,0.92);
+      color:var(--brand);
+      text-decoration:none;
+      font-weight:700;
+      box-shadow:0 8px 20px rgba(0,0,0,0.12);
+      border:1px solid rgba(0,0,0,0.04);
+    }
+
+    .center-wrap{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+      box-sizing:border-box;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:880px;
+      width:100%;
+      z-index:30;
+    }
+
+    .hero-title{
+      margin:0 0 12px;
+      font-size:48px;
+      font-weight:900;
+      letter-spacing:-0.6px;
+      text-shadow:0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    .hero-sub{
+      margin:0 0 26px;
+      color:rgba(255,255,255,0.92);
+      font-size:17px;
+      max-width:64ch;
+      margin-left:auto;
+      margin-right:auto;
+      text-shadow:0 6px 18px rgba(0,0,0,0.45);
+    }
+
+    .lang-row{
+      display:flex;
+      gap:16px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .lang-btn{
+      min-width:160px;
+      padding:14px 18px;
+      border-radius:12px;
+      font-weight:800;
+      text-align:center;
+      text-decoration:none;
+      color:#fff;
+      background:linear-gradient(180deg,var(--cta),#8c5a3a);
+      box-shadow:0 12px 30px rgba(140,90,58,0.18);
+      transition:transform .14s ease, box-shadow .14s ease;
+    }
+
+    .lang-btn:hover{
+      transform:translateY(-6px);
+      box-shadow:0 28px 56px rgba(20,20,20,0.20);
+    }
+
+    .below-links{
+      margin-top:18px;
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .link-ghost{
+      padding:10px 14px;
+      border-radius:10px;
+      background:rgba(255,255,255,0.9);
+      color:var(--brand);
+      text-decoration:none;
+      font-weight:700;
+      border:1px solid rgba(0,0,0,0.04);
+      box-shadow:0 8px 22px rgba(0,0,0,0.10);
+    }
+
+    @media(max-width:720px){
+      .hero-title{font-size:32px}
+      .hero-sub{font-size:15px}
+      .lang-btn{min-width:140px;padding:12px}
+    }
   </style>
 </head>
-<body>
-<header>
-  <div class="wrap">
-    <div class="brand">
-      <div class="logo">B&amp;B</div>
-      <div>
-        <div style="font-size:18px;font-weight:700">Bean &amp; Bloom</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.9)">Кофе и десерты</div>
-      </div>
-    </div>
-  </div>
-</header>
 
-<div class="wrap">
-  <main class="card">
-    <h1>Выберите язык</h1>
-    <p class="lead">Откройте меню на своём телефоне. Быстро. Удобно.</p>
-    <div class="lang-grid">
+<body>
+
+<a class="brand" th:href="@{/}">Bean &amp; Bloom</a>
+
+<div class="center-wrap">
+  <div class="hero-inner">
+    <h1 class="hero-title">Открой меню на своём устройстве</h1>
+    <p class="hero-sub">Быстро. Удобно. Без печатных меню. Выберите язык и переходите к категориям.</p>
+
+    <div class="lang-row">
       <a class="lang-btn" th:href="@{/ru/categories}">Русский</a>
       <a class="lang-btn" th:href="@{/en/categories}">English</a>
     </div>
 
-    <div class="admin-links">
-      <a th:href="@{/admin/categories}">Редактировать категории (Admin)</a>
-      <a th:href="@{/admin/items}">Редактировать позиции (Admin)</a>
-      <a th:href="@{/login}">Войти в админку</a>
+    <div class="below-links">
+      <a class="link-ghost" th:href="@{/admin/categories}">Управление категориями</a>
+      <a class="link-ghost" th:href="@{/admin/items}">Управление позициями</a>
     </div>
-  </main>
-
-  <footer>
-    Bean &amp; Bloom · Адрес: ул. Примерная, 1 · Время работы 08:00–22:00
-  </footer>
+  </div>
 </div>
+
+<div class="admin-links-fixed">
+  <a th:href="@{/login}">Войти (Admin)</a>
+</div>
+
 </body>
 </html>
-

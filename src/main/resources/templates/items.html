@@ -11,7 +11,9 @@
     header{background:#fff;border-bottom:1px solid #eee}
     .wrap{max-width:980px;margin:0 auto;padding:12px}
     .topbar{display:flex;align-items:center;gap:12px;padding:10px 0}
+    .left-actions{display:flex;align-items:center;gap:12px}
     .back{color:var(--muted);text-decoration:none;font-size:14px}
+    .brand{margin-left:auto;font-weight:800;color:var(--brand)}
     .list{margin-top:12px;display:flex;flex-direction:column;gap:12px}
     .item-card{display:flex;gap:12px;background:#fff;padding:12px;border-radius:10px;align-items:center;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
     .item-thumb{width:130px;height:90px;object-fit:cover;border-radius:8px}
@@ -29,7 +31,9 @@
 <header>
   <div class="wrap">
     <div class="topbar">
-      <a class="back" th:href="@{/{lang}/categories(lang=${lang})}">&#8592; Назад</a>
+      <div class="left-actions">
+        <a class="back" th:href="@{/{lang}/categories(lang=${lang})}">&#8592; Назад</a>
+      </div>
       <div style="flex:1"></div>
       <div class="brand">Bean &amp; Bloom</div>
     </div>

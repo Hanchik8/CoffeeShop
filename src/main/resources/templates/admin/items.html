@@ -3,57 +3,251 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Admin — Items</title>
+  <title>Admin – Items</title>
+
   <style>
-    body{font-family:Inter,Arial;margin:0;background:#f6f6f6;color:#222}
-    .wrap{max-width:980px;margin:18px auto;padding:16px;background:#fff;border-radius:10px}
-    .nav{display:flex;gap:10px;margin-bottom:14px;align-items:center}
-    .nav a{color:#6b4f3a;text-decoration:none;font-weight:700}
-    .nav form{margin-left:auto}
-    h1{margin:0 0 12px}
-    .form-inline{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-    input,select{padding:8px;border:1px solid #ddd;border-radius:6px}
-    button{padding:8px 10px;border-radius:6px;border:0;background:#2b6cb0;color:#fff}
-    table{width:100%;border-collapse:collapse;margin-top:12px}
-    th,td{padding:8px;border:1px solid #eee;text-align:left}
-    img{height:48px;border-radius:6px}
+    :root{
+      --bg:#ece8e2;
+      --card:#ffffff;
+      --accent:#8c5a3a;
+      --muted:#7a736e;
+      --surface:#faf7f3;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, Arial, sans-serif;
+      background:var(--bg);
+      color:#2d2d2d;
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:40px auto;
+      padding:32px 40px;
+      background:var(--card);
+      border-radius:18px;
+      box-shadow:0 12px 32px rgba(0,0,0,0.08);
+      border:1px solid #e5ddd4;
+    }
+
+    .nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:24px;
+      padding-bottom:18px;
+      border-bottom:1px solid #e5e1dc;
+    }
+    .nav a{
+      color:var(--accent);
+      font-weight:700;
+      text-decoration:none;
+      font-size:15px;
+      padding:6px 10px;
+      border-radius:6px;
+      transition:0.18s;
+    }
+    .nav a:hover{ background:#f3eee8 }
+
+    .nav form{ margin-left:auto }
+
+    h1{
+      margin:0 0 22px;
+      font-size:26px;
+      color:#4a3629;
+      font-weight:800;
+    }
+
+    .form-inline{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-bottom:22px;
+      background:var(--surface);
+      padding:14px;
+      border-radius:12px;
+      border:1px solid #e8e2dc;
+    }
+
+    .form-inline input[type="text"],
+    .form-inline select,
+    .form-inline input[type="file"]{
+      padding:10px 12px;
+      border:1px solid #d3cbc4;
+      border-radius:8px;
+      font-size:14px;
+      background:#fff;
+      transition:0.18s;
+    }
+
+    .form-inline input:focus,
+    .form-inline select:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(140,90,58,0.12);
+    }
+
+    .form-inline textarea{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #d3cbc4;
+      min-width:320px;
+      min-height:80px;
+      resize:vertical;
+      background:#fff;
+      font-size:14px;
+    }
+
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:10px;
+      border:0;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0 12px;
+      margin-top:12px;
+    }
+
+    thead th{
+      text-align:left;
+      color:#6d6158;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:0.6px;
+      padding:0 12px 6px 12px;
+    }
+
+    tbody tr{
+      display:table-row;
+      background:var(--card);
+      box-shadow:0 6px 20px rgba(0,0,0,0.06);
+      border-radius:12px;
+      overflow:hidden;
+    }
+
+    td{
+      padding:14px 12px;
+      vertical-align:middle;
+      font-size:15px;
+      border-bottom:1px solid #faf8f6;
+    }
+
+    td:first-child{ width:56px; color:#6d6158; font-weight:700 }
+    td:nth-child(2){ font-weight:700; color:#3e2f27 }
+    td:nth-child(3){ color:var(--muted) }
+    td:nth-child(4){ color:#2b6b3a; font-weight:800 }
+    td:last-child{ width:160px }
+
+    .thumb{
+      height:72px;
+      width:96px;
+      object-fit:cover;
+      border-radius:10px;
+      border:1px solid #eee2d8;
+      box-shadow:0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .action-form button{
+      background:#e05252;
+      color:#fff;
+      border:0;
+      padding:8px 12px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    @media (max-width:900px){
+      .wrap{padding:22px}
+      .form-inline textarea{min-width:100%}
+      td{font-size:14px;padding:12px}
+      .thumb{height:56px;width:84px}
+    }
+
+    @media (max-width:640px){
+      .form-inline{flex-direction:column;align-items:stretch}
+      thead{display:none}
+      tbody tr{display:block;padding:12px}
+      td{display:flex;justify-content:space-between;gap:12px;border-bottom:none;padding:10px 0}
+      td:first-child{display:none}
+      td:nth-child(2){flex:2}
+      td:nth-child(3), td:nth-child(4){flex:1;text-align:right}
+      td:last-child{display:flex;gap:8px;justify-content:flex-end}
+    }
   </style>
 </head>
+
 <body>
 <div class="wrap">
+
   <div class="nav">
     <a th:href="@{/admin/categories}">Категории</a>
     <a th:href="@{/admin/items}">Позиции</a>
     <a th:href="@{/}">На сайт</a>
+
     <form th:action="@{/logout}" method="post">
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-      <button type="submit" style="background:#e53e3e;color:#fff;border:0;padding:6px 8px;border-radius:6px;cursor:pointer">Выйти</button>
+      <button type="submit"
+              style="background:#e53e3e;color:#fff;border:0;padding:6px 12px;border-radius:6px;cursor:pointer;font-weight:700">
+        Выйти
+      </button>
     </form>
   </div>
 
   <h1>Items</h1>
+
   <form action="/admin/items/add" method="post" enctype="multipart/form-data" class="form-inline">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <input type="text" name="name" placeholder="Name" required>
-    <input type="text" name="description" placeholder="Description">
     <input type="text" name="price" placeholder="Price" required>
-    <select name="categoryId">
+    <select name="categoryId" required>
       <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
     </select>
     <input type="file" name="image" accept="image/*">
-    <button type="submit">Add Item</button>
+    <textarea name="description" placeholder="Description"></textarea>
+    <button class="btn-primary" type="submit">Add Item</button>
   </form>
 
   <table>
-    <thead><tr><th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Action</th></tr></thead>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+
     <tbody>
     <tr th:each="i : ${items}">
       <td th:text="${i.id}"></td>
-      <td th:text="${i.name}"></td>
+
+      <td>
+        <div style="display:flex;gap:12px;align-items:center">
+          <img th:if="${i.imageFilename} != null" th:src="@{'/uploads/' + ${i.imageFilename}}" class="thumb" alt="">
+          <div>
+            <div th:text="${i.name}">Item name</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:6px" th:text="${i.description}">short description</div>
+          </div>
+        </div>
+      </td>
+
       <td th:text="${i.category != null ? i.category.name : ''}"></td>
       <td th:text="${i.price}"></td>
+
       <td>
-        <form th:action="@{'/admin/items/' + ${i.id} + '/delete'}" method="post" style="display:inline">
+        <form th:action="@{'/admin/items/' + ${i.id} + '/delete'}" method="post" style="display:inline" class="action-form">
           <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
           <button type="submit">Delete</button>
         </form>
@@ -61,6 +255,7 @@
     </tr>
     </tbody>
   </table>
+
 </div>
 </body>
 </html>
