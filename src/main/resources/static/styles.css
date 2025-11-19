@@ -1,0 +1,18 @@
+*{box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;background:#f6f6f6;color:#222}
+.container{max-width:960px;margin:20px auto;padding:16px;background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.08)}
+.lang-list{display:flex;gap:12px}
+.lang-btn{display:inline-block;padding:12px 20px;border-radius:6px;background:#222;color:#fff;text-decoration:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.card{background:#fafafa;border-radius:8px;overflow:hidden;text-align:center;padding:8px}
+.thumb{width:100%;height:100px;object-fit:cover;border-radius:6px}
+.title{padding:8px 4px;font-weight:600}
+.item-card{display:flex;gap:12px;padding:12px;border-bottom:1px solid #eee}
+.item-thumb{width:120px;height:90px;object-fit:cover;border-radius:6px}
+.item-body{flex:1}
+.item-name{font-weight:700;margin-bottom:6px}
+.back,.home{margin-right:12px;text-decoration:none;color:#333}
+.form-inline{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{padding:8px;border:1px solid #eee;text-align:left}
+button{padding:6px 10px;border-radius:6px;border:0;background:#2b6cb0;color:#fff;cursor:pointer}

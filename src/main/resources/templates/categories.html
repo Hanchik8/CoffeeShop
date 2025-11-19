@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title th:text="${lang == 'ru'} ? 'Категории — Bean & Bloom' : 'Categories — Bean & Bloom'">Categories</title>
+    <style>
+        :root{--brand:#6b4f3a;--accent:#cfa27a;--muted:#6d6d6d;--bg:#f5f3f1}
+        *{box-sizing:border-box}
+        body{font-family:Inter,system-ui,Arial;margin:0;background:var(--bg);color:#222}
+        header{background:#fff;border-bottom:1px solid #eee}
+        .wrap{max-width:980px;margin:0 auto;padding:12px}
+        .topbar{display:flex;align-items:center;gap:12px;padding:10px 0}
+        .brand{font-weight:700;color:var(--brand)}
+        .back{color:var(--muted);text-decoration:none;font-size:14px}
+        h1{margin:6px 0 14px;font-size:22px}
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+        .card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,0.04);text-align:center;padding:8px}
+        .thumb{width:100%;height:120px;object-fit:cover;border-radius:6px}
+        .title{padding:10px 6px;font-weight:700}
+        .subtitle{font-size:13px;color:var(--muted);margin-top:-8px}
+        .admin-links{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+        .admin-links a{padding:8px;border-radius:8px;background:#fff;border:1px solid #e5e5e5;text-decoration:none;color:var(--brand);font-weight:700}
+        footer{margin-top:22px;padding:18px 12px;text-align:center;color:var(--muted);font-size:13px}
+        @media(max-width:520px){.thumb{height:100px}}
+    </style>
+</head>
+<body>
+<header>
+    <div class="wrap">
+        <div class="topbar">
+            <a class="back" th:href="@{/}">&#8592; Главная</a>
+            <div style="flex:1"></div>
+            <div class="brand">Bean &amp; Bloom</div>
+        </div>
+    </div>
+</header>
+
+<div class="wrap">
+    <h1 th:text="${lang == 'ru'} ? 'Категории' : 'Categories'">Categories</h1>
+
+    <div class="grid">
+        <div th:each="cat : ${categories}" class="card">
+            <a th:href="@{/{lang}/category/{id}/items(lang=${lang},id=${cat.id})}" style="text-decoration:none;color:inherit">
+                <img th:if="${cat.imageFilename} != null" th:src="@{'/uploads/' + ${cat.imageFilename}}" alt="" loading="lazy" class="thumb">
+                <div class="title" th:text="${cat.name}">Category name</div>
+                <div class="subtitle" th:text="${cat.language == 'ru'} ? 'Категория' : 'Category'"></div>
+            </a>
+        </div>
+    </div>
+
+    <div class="admin-links">
+        <a th:href="@{/admin/categories}">Управление категориями</a>
+        <a th:href="@{/admin/items}">Управление позициями</a>
+        <a th:href="@{/login}">Войти</a>
+    </div>
+
+    <footer>
+        © Bean &amp; Bloom — настоящее меню всегда под рукой. Телефон для заказов +000 000 000
+    </footer>
+</div>
+</body>
+</html>

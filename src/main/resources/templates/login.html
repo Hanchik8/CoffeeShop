@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Вход — Bean &amp; Bloom</title>
+    <style>
+        body{font-family:Arial,Helvetica,sans-serif;background:#f5f3f1;margin:0}
+        .wrap{max-width:420px;margin:80px auto;padding:22px;background:#fff;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+        h1{margin:0 0 12px;color:#6b4f3a}
+        form{display:flex;flex-direction:column;gap:10px}
+        input{padding:10px;border:1px solid #ddd;border-radius:8px}
+        button{padding:10px;border:0;border-radius:8px;background:#6b4f3a;color:#fff;font-weight:700}
+        .hint{font-size:13px;color:#7a7a7a}
+        .links{margin-top:12px;font-size:13px;color:#7a7a7a}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h1>Admin login</h1>
+    <form th:action="@{/login}" method="post">
+        <input name="username" placeholder="Username" required>
+        <input name="password" placeholder="Password" type="password" required>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit">Войти</button>
+    </form>
+    <div class="links">
+        <a th:href="@{ / }" style="color:#6b4f3a;text-decoration:none">На главную</a>
+    </div>
+</div>
+</body>
+</html>

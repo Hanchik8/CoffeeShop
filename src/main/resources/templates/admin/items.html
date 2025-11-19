@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — Items</title>
+  <style>
+    body{font-family:Inter,Arial;margin:0;background:#f6f6f6;color:#222}
+    .wrap{max-width:980px;margin:18px auto;padding:16px;background:#fff;border-radius:10px}
+    .nav{display:flex;gap:10px;margin-bottom:14px;align-items:center}
+    .nav a{color:#6b4f3a;text-decoration:none;font-weight:700}
+    .nav form{margin-left:auto}
+    h1{margin:0 0 12px}
+    .form-inline{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    input,select{padding:8px;border:1px solid #ddd;border-radius:6px}
+    button{padding:8px 10px;border-radius:6px;border:0;background:#2b6cb0;color:#fff}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:8px;border:1px solid #eee;text-align:left}
+    img{height:48px;border-radius:6px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="nav">
+    <a th:href="@{/admin/categories}">Категории</a>
+    <a th:href="@{/admin/items}">Позиции</a>
+    <a th:href="@{/}">На сайт</a>
+    <form th:action="@{/logout}" method="post">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+      <button type="submit" style="background:#e53e3e;color:#fff;border:0;padding:6px 8px;border-radius:6px;cursor:pointer">Выйти</button>
+    </form>
+  </div>
+
+  <h1>Items</h1>
+  <form action="/admin/items/add" method="post" enctype="multipart/form-data" class="form-inline">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="text" name="description" placeholder="Description">
+    <input type="text" name="price" placeholder="Price" required>
+    <select name="categoryId">
+      <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+    </select>
+    <input type="file" name="image" accept="image/*">
+    <button type="submit">Add Item</button>
+  </form>
+
+  <table>
+    <thead><tr><th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Action</th></tr></thead>
+    <tbody>
+    <tr th:each="i : ${items}">
+      <td th:text="${i.id}"></td>
+      <td th:text="${i.name}"></td>
+      <td th:text="${i.category != null ? i.category.name : ''}"></td>
+      <td th:text="${i.price}"></td>
+      <td>
+        <form th:action="@{'/admin/items/' + ${i.id} + '/delete'}" method="post" style="display:inline">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
