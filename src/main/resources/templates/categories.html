@@ -22,7 +22,7 @@
         <div th:each="cat : ${categories}" class="card">
             <a th:href="@{/{lang}/category/{id}/items(lang=${lang},id=${cat.id})}" style="text-decoration:none;color:inherit">
                 <img th:if="${cat.imageFilename} != null" th:src="@{'/uploads/' + ${cat.imageFilename}}" alt="" loading="lazy" class="thumb">
-                <img th:if="${cat.imageFilename} == null" src="file:///mnt/data/alexandra-RPDCA2KiLAQ-unsplash.jpg" alt="placeholder" loading="lazy" class="thumb">
+                <img th:if="${cat.imageFilename} == null" src="/images/item_cheesecake.jpg" alt="placeholder" loading="lazy" class="thumb">
                 <div class="meta">
                     <div class="title" th:text="${cat.name}">Category name</div>
                     <div class="subtitle" th:text="${cat.language == 'ru'} ? 'Категория' : 'Category'"></div>
@@ -37,7 +37,7 @@
         <a th:href="@{/login}" class="btn-ghost">Войти</a>
     </div>
 
-    <footer style="margin-top:18px;color:var(--muted);font-size:13px;">
+    <footer style="margin-top:18px;color:var(--muted);font-size:13px;"  th:text="${lang == 'ru'} ? '© Bean &amp; Bloom — настоящее меню всегда под рукой. Телефон для заказов +996 702 800 063' : '© Bean & Bloom — the real menu is always at your fingertips. Order at +996 702 800 063'">
         © Bean &amp; Bloom — настоящее меню всегда под рукой. Телефон для заказов +996 702 800 063
     </footer>
 </div>
