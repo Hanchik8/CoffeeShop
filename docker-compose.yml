@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:15
+    container_name: coffeeshop_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: CafeShop
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Azizkhan2007
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - coffeeshop-net
+
+  app:
+    build: .
+    image: coffeeshop-backend:local
+    container_name: coffeeshop_app
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/CafeShop
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Azizkhan2007
+      FILE_UPLOAD_DIR: /uploads
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    volumes:
+      - uploads:/uploads
+    ports:
+      - "8080:8080"
+    networks:
+      - coffeeshop-net
+
+volumes:
+  db-data:
+  uploads:
+
+networks:
+  coffeeshop-net:

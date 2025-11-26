@@ -31,3 +31,65 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Maven / build
+/target/
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/logs/
+*.log
+
+# IDEs
+/.idea/
+/*.iml
+/.classpath
+/.project
+/.settings/
+
+# IntelliJ
+*.iws
+out/
+.idea/
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+*.jar
+*.war
+
+# Spring / IDE temporary
+spring-boot-devtools.properties
+
+# Node (если есть front)
+node_modules/
+
+# Uploaded files (локальные директории с медиа/эпюплодами)
+# Путь из твоего properties:
+C:/Users/ProBook/Desktop/CoffeeShop/uploads
+/uploads/
+/uploads/**
+
+# Конфигурации и секреты
+.env
+.env.*
+*.env
+
+# Application config with secrets — НЕ коммитить реальные пароли/ключи
+/src/main/resources/application.properties
+/src/main/resources/application-*.properties
+
+# Hibernate / JPA LOB / temp
+*.h2.db
+*.mv.db
+
+# Misc
+*.swp
+*.swo
+
