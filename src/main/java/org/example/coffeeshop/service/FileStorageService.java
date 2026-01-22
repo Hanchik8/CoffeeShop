@@ -1,7 +1,9 @@
 package org.example.coffeeshop.service;
 
+import org.example.coffeeshop.exception.InvalidFileException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.unit.DataSize;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.*;
@@ -9,7 +11,10 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
+import java.util.Arrays;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -19,24 +24,36 @@ import javax.imageio.stream.ImageOutputStream;
 @Service
 public class FileStorageService {
     private final Path uploadDir;
+    private final DataSize maxFileSize;
+    private final Set<String> allowedContentTypes;
     private static final int MAX_WIDTH = 1024;
     private static final int MAX_HEIGHT = 768;
     private static final float JPEG_QUALITY = 0.85f;
 
-    public FileStorageService(@Value("${file.upload-dir}") String uploadDir) throws IOException {
+    public FileStorageService(
+            @Value("${file.upload-dir:uploads}") String uploadDir,
+            @Value("${app.upload.max-file-size:5MB}") DataSize maxFileSize,
+            @Value("${app.upload.allowed-content-types:image/jpeg,image/png,image/gif,image/webp}")
+                    String allowedContentTypes) throws IOException {
         this.uploadDir = Paths.get(uploadDir).toAbsolutePath().normalize();
+        this.maxFileSize = maxFileSize;
+        this.allowedContentTypes = Arrays.stream(allowedContentTypes.split(","))
+                .map(String::trim)
+                .filter(value -> !value.isEmpty())
+                .map(String::toLowerCase)
+                .collect(Collectors.toUnmodifiableSet());
         Files.createDirectories(this.uploadDir);
     }
 
-    public String storeFile(MultipartFile file) throws IOException {
-        String contentType = file.getContentType();
-        if (contentType == null || !contentType.startsWith("image")) {
-            throw new IllegalArgumentException("Only image files are allowed");
+    public String storeFile(MultipartFile file) {
+        if (!hasImage(file)) {
+            return null;
         }
+        validateImage(file);
         try (InputStream is = file.getInputStream()) {
             BufferedImage src = ImageIO.read(is);
             if (src == null) {
-                throw new IllegalArgumentException("Uploaded file is not a valid image");
+                throw new InvalidFileException("Uploaded file is not a valid image");
             }
             BufferedImage resized = resizeToFit(src, MAX_WIDTH, MAX_HEIGHT);
             String filename = UUID.randomUUID().toString() + ".jpg";
@@ -53,6 +70,8 @@ public class FileStorageService {
                 writer.dispose();
             }
             return filename;
+        } catch (IOException e) {
+            throw new InvalidFileException("Unable to store uploaded image");
         }
     }
 
@@ -64,6 +83,32 @@ public class FileStorageService {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    public byte[] loadFile(String filename) throws IOException {
+        if (filename == null) {
+            return null;
+        }
+        Path target = this.uploadDir.resolve(filename).normalize();
+        if (!Files.exists(target)) {
+            return null;
+        }
+        return Files.readAllBytes(target);
+    }
+
+    private void validateImage(MultipartFile file) {
+        String contentType = file.getContentType();
+        if (contentType == null || !allowedContentTypes.contains(contentType.toLowerCase())) {
+            throw new InvalidFileException("Invalid file type. Allowed types: JPEG, PNG, GIF, WebP");
+        }
+        if (file.getSize() > maxFileSize.toBytes()) {
+            throw new InvalidFileException(
+                    "File size exceeds maximum limit of " + maxFileSize.toString());
+        }
+    }
+
+    private boolean hasImage(MultipartFile file) {
+        return file != null && !file.isEmpty();
     }
 
     private BufferedImage resizeToFit(BufferedImage src, int maxW, int maxH) {

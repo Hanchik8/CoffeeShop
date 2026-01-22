@@ -43,7 +43,8 @@
 <div class="wrap">
   <div class="list">
     <div th:each="it : ${items}" class="item-card">
-      <img th:if="${it.imageFilename} != null" th:src="@{'/uploads/' + ${it.imageFilename}}" alt="" loading="lazy" class="item-thumb">
+      <img th:if="${it.imageFilename} != null" th:src="@{'/api/image/item/' + ${it.id}}" alt="" loading="lazy" class="item-thumb">
+      <img th:if="${it.imageFilename} == null" th:src="@{/images/item_latte.jpg}" alt="placeholder" loading="lazy" class="item-thumb">
       <div class="item-body">
         <div class="item-name" th:text="${it.name}">Item name</div>
         <div class="item-desc" th:text="${it.description}">Description</div>
