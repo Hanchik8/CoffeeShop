@@ -1,6 +1,6 @@
 -- Seed categories
 insert into categories (name, language, image_filename)
-select 'Coffee', 'ru', '1763369959398_photo_2025-11-14_19-49-36.jpg'
+select 'Coffee', 'ru', '34e4ad15-ea4d-4ce1-a22d-b4c26776078e.jpg'
 where not exists (select 1 from categories where name = 'Coffee' and language = 'ru');
 
 insert into categories (name, language, image_filename)
@@ -12,7 +12,7 @@ select 'Desserts', 'ru', '4e8d6851-2990-4d15-820f-4625c2fe0afa.jpg'
 where not exists (select 1 from categories where name = 'Desserts' and language = 'ru');
 
 insert into categories (name, language, image_filename)
-select 'Breakfast', 'ru', '64f67683-2b29-44a1-a3c7-bffc88a9a150.jpg'
+select 'Breakfast', 'ru', 'cb322ab8-0185-44be-b038-ef595edc5c86.jpg'
 where not exists (select 1 from categories where name = 'Breakfast' and language = 'ru');
 
 insert into categories (name, language, image_filename)
@@ -34,7 +34,7 @@ where not exists (select 1 from categories where name = 'Breakfast' and language
 -- Seed menu items (ru)
 insert into menu_item (name, description, price, image_filename, category_id)
 select 'Skibidi Latte', 'Velvety espresso with oat milk.', 220.00,
-       '1763369959398_photo_2025-11-14_19-49-36.jpg', c.id
+       '34e4ad15-ea4d-4ce1-a22d-b4c26776078e.jpg', c.id
 from categories c
 where c.name = 'Coffee' and c.language = 'ru'
   and not exists (
@@ -88,7 +88,7 @@ where c.name = 'Desserts' and c.language = 'ru'
 
 insert into menu_item (name, description, price, image_filename, category_id)
 select 'Ham Croissant', 'Buttery croissant with ham and cheese.', 230.00,
-       '64f67683-2b29-44a1-a3c7-bffc88a9a150.jpg', c.id
+       'cb322ab8-0185-44be-b038-ef595edc5c86.jpg', c.id
 from categories c
 where c.name = 'Breakfast' and c.language = 'ru'
   and not exists (
@@ -116,7 +116,7 @@ where c.name = 'Coffee' and c.language = 'en'
 
 insert into menu_item (name, description, price, image_filename, category_id)
 select 'Nitro Cold Brew', 'Smooth cold brew with cream.', 240.00,
-       '1763369959398_photo_2025-11-14_19-49-36.jpg', c.id
+       '34e4ad15-ea4d-4ce1-a22d-b4c26776078e.jpg', c.id
 from categories c
 where c.name = 'Coffee' and c.language = 'en'
   and not exists (
@@ -161,7 +161,7 @@ where c.name = 'Desserts' and c.language = 'en'
 
 insert into menu_item (name, description, price, image_filename, category_id)
 select 'Salmon Bagel', 'Smoked salmon, cream cheese.', 250.00,
-       '64f67683-2b29-44a1-a3c7-bffc88a9a150.jpg', c.id
+       'cb322ab8-0185-44be-b038-ef595edc5c86.jpg', c.id
 from categories c
 where c.name = 'Breakfast' and c.language = 'en'
   and not exists (
