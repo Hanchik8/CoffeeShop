@@ -32,9 +32,6 @@ RUN mkdir -p /app/uploads
 # Copy the JAR file from build stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Copy uploads folder with existing images
-COPY uploads /app/uploads
-
 # Expose port
 EXPOSE 8080
 
