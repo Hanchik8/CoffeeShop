@@ -39,10 +39,11 @@ async function fetchWithCsrf(url, opts) {
   var resp = await fetch(url, finalOpts);
   if (!resp.ok) {
     var body;
+    var text = await resp.text();
     try {
-      body = await resp.json();
+      body = JSON.parse(text);
     } catch (e) {
-      body = await resp.text();
+      body = text;
     }
     var err = new Error("HTTP " + resp.status);
     err.status = resp.status;
@@ -114,7 +115,7 @@ function setupAdminPage() {
         ev.preventDefault();
         clearError();
         var id = btn.getAttribute("data-id");
-        if (!window.confirm("Delete category " + id + "?")) return;
+        if (!window.confirm("Удалить категорию " + id + "?")) return;
         fetchWithCsrf("/api/admin/category/" + id, { method: "DELETE" })
           .then(function() {
             window.location.reload();
@@ -149,7 +150,7 @@ function setupAdminPage() {
         ev.preventDefault();
         clearError();
         var id = btn.getAttribute("data-id");
-        if (!window.confirm("Delete item " + id + "?")) return;
+        if (!window.confirm("Удалить позицию " + id + "?")) return;
         fetchWithCsrf("/api/admin/item/" + id, { method: "DELETE" })
           .then(function() {
             window.location.reload();

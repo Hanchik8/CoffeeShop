@@ -33,14 +33,47 @@ Key variables (defaults in `src/main/resources/application.properties`):
 Default admin credentials: admin / admin123
 
 ## Run
-Windows:
 
+### Option 1: Docker (recommended)
+
+Run everything in Docker:
+
+```bash
+docker-compose up --build
+```
+
+### Option 2: Local development with Docker DB
+
+Start only PostgreSQL in Docker:
+
+```bash
+docker-compose -f docker-compose.dev.yml up -d
+```
+
+Then run the app locally:
+
+Windows:
+```powershell
+$env:SPRING_DATASOURCE_URL="jdbc:postgresql://localhost:5433/coffeeshop_db"
+$env:SPRING_DATASOURCE_PASSWORD="postgres"
+.\mvnw.cmd spring-boot:run
+```
+
+Linux/macOS:
+```bash
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5433/coffeeshop_db \
+SPRING_DATASOURCE_PASSWORD=postgres \
+./mvnw spring-boot:run
+```
+
+### Option 3: Local PostgreSQL
+
+Windows:
 ```bash
 mvnw.cmd spring-boot:run
 ```
 
-Linux or macOS:
-
+Linux/macOS:
 ```bash
 ./mvnw spring-boot:run
 ```

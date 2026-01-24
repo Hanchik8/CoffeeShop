@@ -103,14 +103,62 @@
       font-size:14px;
     }
 
-    .btn-primary{
-      background:var(--accent);
-      color:#fff;
-      padding:10px 14px;
-      border-radius:10px;
-      border:0;
-      font-weight:700;
-      cursor:pointer;
+    /* Button Styles */
+    .btn-primary {
+      background: linear-gradient(135deg, #8c5a3a 0%, #6b4530 100%);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: 0;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(140, 90, 58, 0.3);
+      font-size: 14px;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(140, 90, 58, 0.4);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #e05252 0%, #c73e3e 100%);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 0;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(224, 82, 82, 0.25);
+      font-size: 13px;
+    }
+    .btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(224, 82, 82, 0.35);
+    }
+    .btn-danger:active {
+      transform: translateY(0);
+    }
+
+    .btn-logout {
+      background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+      color: #fff;
+      border: 0;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+    }
+    .btn-logout:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(107, 114, 128, 0.4);
     }
 
     table{
@@ -159,14 +207,8 @@
       box-shadow:0 4px 12px rgba(0,0,0,0.04);
     }
 
-    .action-form button{
-      background:#e05252;
-      color:#fff;
-      border:0;
-      padding:8px 12px;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:700;
+    .action-form {
+      display: inline-block;
     }
 
     .error-banner{
@@ -211,37 +253,34 @@
 
     <form th:action="@{/logout}" method="post">
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-      <button type="submit"
-              style="background:#e53e3e;color:#fff;border:0;padding:6px 12px;border-radius:6px;cursor:pointer;font-weight:700">
-        Выйти
-      </button>
+      <button type="submit" class="btn-logout">Выйти</button>
     </form>
   </div>
 
-  <h1>Items</h1>
+  <h1>Позиции меню</h1>
 
   <div id="adminError" class="error-banner" role="alert"></div>
 
   <form action="/admin/items/add" method="post" enctype="multipart/form-data" class="form-inline" data-admin-form="item">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-    <input type="text" name="name" placeholder="Name" required>
-    <input type="text" name="price" placeholder="Price" required>
+    <input type="text" name="name" placeholder="Название" required>
+    <input type="text" name="price" placeholder="Цена" required>
     <select name="categoryId" required>
       <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
     </select>
     <input type="file" name="image" accept="image/*">
-    <textarea name="description" placeholder="Description"></textarea>
-    <button class="btn-primary" type="submit">Add Item</button>
+    <textarea name="description" placeholder="Описание"></textarea>
+    <button class="btn-primary" type="submit">Добавить</button>
   </form>
 
   <table>
     <thead>
     <tr>
       <th>ID</th>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Price</th>
-      <th>Action</th>
+      <th>Название</th>
+      <th>Категория</th>
+      <th>Цена</th>
+      <th>Действие</th>
     </tr>
     </thead>
 
@@ -263,9 +302,9 @@
       <td th:text="${i.price}"></td>
 
       <td>
-        <form th:action="@{'/admin/items/' + ${i.id} + '/delete'}" method="post" style="display:inline" class="action-form">
+        <form th:action="@{'/admin/items/' + ${i.id} + '/delete'}" method="post" class="action-form">
           <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-          <button type="submit" data-action="delete-item" th:data-id="${i.id}">Delete</button>
+          <button type="submit" class="btn-danger" data-action="delete-item" th:data-id="${i.id}">Удалить</button>
         </form>
       </td>
     </tr>
